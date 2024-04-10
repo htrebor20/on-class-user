@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import usermicroservice.domain.model.Role;
+
 @AllArgsConstructor
 @Getter
 public class AddUserRequest {
@@ -20,7 +20,7 @@ public class AddUserRequest {
     @NotBlank(message = "This field is required")
     private final String email;
     @NotNull(message = "This field is required")
-    private final Role role;
+    private final long roleId;
     @NotBlank(message = "This field is required")
     private final String password;
     private final String country;

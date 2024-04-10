@@ -3,6 +3,7 @@ package usermicroservice.configuration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import usermicroservice.adapters.driven.jpa.mysql.adapter.RoleAdapter;
 import usermicroservice.adapters.driven.jpa.mysql.adapter.UserAdapter;
 import usermicroservice.adapters.driven.jpa.mysql.mapper.IRoleEntityMapper;
@@ -24,15 +25,17 @@ public class BeanConfiguration {
     private final IUserEntityMapper userEntityMapper;
     private final IRoleRepository roleRepository;
     private final IRoleEntityMapper roleEntityMapper;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserAdapter(userRepository, userEntityMapper);
+        return new UserAdapter(userRepository, userEntityMapper, passwordEncoder);
     }
 
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort());
+        return new UserUseCase(userPersistencePort(), roleServicePort());
     }
 
     @Bean

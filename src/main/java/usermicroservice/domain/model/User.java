@@ -9,7 +9,7 @@ public class User {
     private final Long document;
     private final String cellphone;
     private final String email;
-    private final Role role;
+    private Role role;
     private final String password;
     private final String country;
     private final String city;
@@ -89,6 +89,10 @@ public class User {
 
     public String getInstagramUrl() {
         return instagramUrl;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
