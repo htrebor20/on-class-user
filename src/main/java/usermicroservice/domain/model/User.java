@@ -10,7 +10,7 @@ public class User {
     private final String cellphone;
     private final String email;
     private Role role;
-    private final String password;
+    private String password;
     private final String country;
     private final String city;
     private final String academicLevel;
@@ -93,6 +93,10 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

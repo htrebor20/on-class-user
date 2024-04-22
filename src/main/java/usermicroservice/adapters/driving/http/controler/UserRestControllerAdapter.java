@@ -20,10 +20,24 @@ public class UserRestControllerAdapter {
     private final IUserRequestMapper userRequestMapper;
     private final IUserServicePort userServicePort;
 
-    @PostMapping("")
-    public ResponseEntity<Void> addBootcamp(@RequestBody  @Valid AddUserRequest request) {
+    @PostMapping("/register/admin")
+    public ResponseEntity<Void> addUserAdmin(@RequestBody  @Valid AddUserRequest request) {
         User user = userRequestMapper.dtoRequestToUser(request);
-        userServicePort.saveUser(user);
+        userServicePort.saveUser(user, 1L);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/register/tutor")
+    public ResponseEntity<Void> addUserTutor(@RequestBody  @Valid AddUserRequest request) {
+        User user = userRequestMapper.dtoRequestToUser(request);
+        userServicePort.saveUser(user, 2L);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/register/student")
+    public ResponseEntity<Void> addUserStudent(@RequestBody  @Valid AddUserRequest request) {
+        User user = userRequestMapper.dtoRequestToUser(request);
+        userServicePort.saveUser(user, 3L);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

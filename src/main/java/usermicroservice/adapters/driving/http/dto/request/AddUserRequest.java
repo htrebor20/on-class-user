@@ -19,8 +19,6 @@ public class AddUserRequest {
     private final String cellphone;
     @NotBlank(message = "This field is required")
     private final String email;
-    @NotNull(message = "This field is required")
-    private final long roleId;
     @NotBlank(message = "This field is required")
     private final String password;
     private final String country;
