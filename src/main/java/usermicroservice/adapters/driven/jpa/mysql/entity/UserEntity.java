@@ -20,6 +20,7 @@ public class UserEntity {
     private  String lastName;
     private  Long document;
     private  String cellphone;
+    @Column(unique = true)
     private  String email;
     private  String password;
     private  String country;

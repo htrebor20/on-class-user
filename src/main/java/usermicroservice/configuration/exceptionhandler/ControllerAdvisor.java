@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import usermicroservice.domain.exception.BadRequestValidationException;
 
+import javax.security.sasl.AuthenticationException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,12 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(BadRequestValidationException.class)
     public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestValidationException ex) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(ex.getMessage(),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ExceptionResponse> handleAuthenticationException(AuthenticationException ex) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(ex.getMessage(),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
