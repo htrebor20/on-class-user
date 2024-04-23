@@ -15,8 +15,9 @@ public class RoleAdapter implements IRolePersistencePort {
     private final IRoleEntityMapper roleEntityMapper;
 
     @Override
-    public Role findById(Long id) {
-        Optional<RoleEntity> role = roleRepository.findById(id);
+    public Role findByName(String roleName) {
+        Optional<RoleEntity> role = roleRepository.findByName(roleName);
         return role.map(roleEntityMapper::toModel).orElse(null);
     }
+
 }

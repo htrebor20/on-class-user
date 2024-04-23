@@ -1,4 +1,4 @@
-package usermicroservice.configuration.security;
+package usermicroservice.configuration.security.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

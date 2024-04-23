@@ -20,24 +20,31 @@ public class UserRestControllerAdapter {
     private final IUserRequestMapper userRequestMapper;
     private final IUserServicePort userServicePort;
 
+    @PostMapping("/register/first-admin")
+    public ResponseEntity<Void> addFirstUserAdmin(@RequestBody  @Valid AddUserRequest request) {
+        User user = userRequestMapper.dtoRequestToUser(request);
+        userServicePort.saveAdmin(user);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     @PostMapping("/register/admin")
     public ResponseEntity<Void> addUserAdmin(@RequestBody  @Valid AddUserRequest request) {
         User user = userRequestMapper.dtoRequestToUser(request);
-        userServicePort.saveUser(user, 1L);
+        userServicePort.saveAdmin(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/register/tutor")
     public ResponseEntity<Void> addUserTutor(@RequestBody  @Valid AddUserRequest request) {
         User user = userRequestMapper.dtoRequestToUser(request);
-        userServicePort.saveUser(user, 2L);
+        userServicePort.saveTutor(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/register/student")
     public ResponseEntity<Void> addUserStudent(@RequestBody  @Valid AddUserRequest request) {
         User user = userRequestMapper.dtoRequestToUser(request);
-        userServicePort.saveUser(user, 3L);
+        userServicePort.saveStudent(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

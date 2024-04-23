@@ -21,13 +21,25 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void saveUser(User user, Long id) {
-       Optional<User> response = Optional.ofNullable(userPersistencePort.findByEmail(user.getEmail()));
+    public void saveAdmin(User user) { saveUser(user, Constants.ROLE_ADMIN); }
+
+    @Override
+    public void saveTutor(User user) {
+        saveUser(user, Constants.ROLE_TUTOR);
+    }
+
+    @Override
+    public void saveStudent(User user) {
+        saveUser(user, Constants.ROLE_STUDENT);
+    }
+
+    private void saveUser(User user, String roleName) {
+        Optional<User> response = Optional.ofNullable(userPersistencePort.findByEmail(user.getEmail()));
         if(response.isPresent()) {
             throw new BadRequestValidationException(Constants.EMAIL_EXCEPTION_MESSAGE);
         }
 
-        Role role = roleServicePort.findById(id);
+        Role role = roleServicePort.findByName(roleName);
         user.setRole(role);
         String encoded = EncoderHelper.encodePassword(user.getPassword());
         user.setPassword(encoded);

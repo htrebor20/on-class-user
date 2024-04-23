@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     public RequestMatcher whiteListRequestMatcher(){
         List<String> whiteList = List.of(
                 "/auth/login",
-                "/user/register/admin"
+                "/user/register/first-admin"
         );
 
         return request -> whiteList.stream().anyMatch(request.getServletPath()::equals);
@@ -44,7 +44,7 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(whiteListRequestMatcher()).permitAll()
-                        .requestMatchers("/user/register/tutor").hasRole("ADMIN")
+                        .requestMatchers("/user/register/admin", "/user/register/tutor").hasRole("ADMIN")
                         .requestMatchers("/user/register/student").hasAnyRole("ADMIN", "TUTOR")
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager

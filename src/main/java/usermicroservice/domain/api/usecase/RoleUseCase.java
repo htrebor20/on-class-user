@@ -16,10 +16,10 @@ public class RoleUseCase implements IRoleServicePort {
     }
 
     @Override
-    public Role findById(Long id) {
-        Optional<Role> role = Optional.ofNullable(rolePersistencePort.findById(id));
+    public Role findByName(String roleName) {
+        Optional<Role> role = Optional.ofNullable(rolePersistencePort.findByName(roleName));
         if(role.isEmpty()) {
-            throw new BadRequestValidationException(String.format(Constants.ID_ROL_VALIDATIONS_EXCEPTION_MESSAGE, id));
+            throw new BadRequestValidationException(String.format(Constants.ID_ROL_VALIDATIONS_EXCEPTION_MESSAGE, roleName));
         }
         return role.get();
     }
