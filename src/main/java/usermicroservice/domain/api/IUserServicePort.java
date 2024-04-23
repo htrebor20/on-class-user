@@ -3,5 +3,7 @@ package usermicroservice.domain.api;
 import usermicroservice.domain.model.User;
 
 public interface IUserServicePort {
-    void saveUser(User user, Long id);
+    void saveAdmin(User user);
+    void saveTutor(User user);
+    void saveStudent(User user);
 }
